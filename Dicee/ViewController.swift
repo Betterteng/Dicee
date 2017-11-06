@@ -19,6 +19,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        updateDiceImages()
     }
 
     override func didReceiveMemoryWarning() {
@@ -27,15 +28,19 @@ class ViewController: UIViewController {
     }
     
     @IBAction func rollButtonPressed(_ sender: UIButton) {
+        updateDiceImages()
+    }
+    
+    func updateDiceImages() -> Void {
         randomNum1 = Int(arc4random_uniform(6)) + 1
         randomNum2 = Int(arc4random_uniform(6)) + 1
         
-        // This method can also achieve the goal...
         diceImage1.image = UIImage(named: "dice\(randomNum1)")
         diceImage2.image = UIImage(named: "dice\(randomNum2)")
-        
     }
     
-    
-    
+    // When after shaking the iPhone, update the dice images...
+    override func motionEnded(_ motion: UIEventSubtype, with event: UIEvent?) {
+        updateDiceImages()
+    }
 }
